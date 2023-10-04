@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Billiard Ball Color Quiz</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Billiard Ball Color Quiz</h1>
+      <div class="ball">
+        <div class="ball__inner">
+          <div class="ball__num">?</div>
+        </div>
+      </div>
+      <div id="display"></div>
+      <form id="form">
+        <input id="input" type="text" pattern="\d*" autocomplete="off" />
+        <button type="submit">Submit Answer</button>
+      </form>
+      <div id="feedback"></div>
+      <button id="startGameButton" class="start-button hidden">Start Over</button>
+      <footer>&copy; <span id="currentYear"></span> <a href="https://blbinnovation.com">BLB Innovation</a></footer>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
