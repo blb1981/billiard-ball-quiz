@@ -35,6 +35,12 @@ h1 {
   font-size: 3rem;
 }
 
+@media screen and (max-width: 400px) {
+  h1 {
+    font-size: 2rem;
+  }
+}
+
 button {
   font-size: 1rem;
   padding: 0.5em 1em;
@@ -136,10 +142,27 @@ footer a {
   border: 3px solid black;
 }
 
+.ball__shine {
+  position: absolute;
+  content: '';
+  background-image: radial-gradient(closest-side at 50%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+  top: 5%;
+  left: 50%;
+  width: 70%;
+  height: 35%;
+  transform: translateX(-50%);
+}
+
 #display {
   text-align: center;
   margin: 1rem 0;
   font-size: 2rem;
+}
+
+@media screen and (max-width: 400px) {
+  #display {
+    font-size: 1.5rem;
+  }
 }
 
 form {
@@ -187,5 +210,37 @@ form > * {
   font-size: 2rem;
   cursor: pointer;
   color: var(--clr-brown-400);
+  margin-bottom: 1rem;
+}
+
+.guess-button-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  width: min(90%, 20rem);
+  gap: 2rem;
+  margin-inline: auto;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 400px) {
+  .guess-button-container {
+    gap: 1rem;
+  }
+}
+
+.guess-button {
+  font-size: 2rem;
+}
+
+@media screen and (max-width: 400px) {
+  .guess-button {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+#countdown {
   margin-bottom: 1rem;
 }

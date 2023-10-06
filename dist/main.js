@@ -6,6 +6,8 @@ const startGameButtonEl = document.getElementById('startGameButton');
 const feedbackEl = document.getElementById('feedback');
 const currentYearEl = document.getElementById('currentYear');
 const guessInputEl = document.getElementById('guessInput');
+const countdownEl = document.getElementById('countdown');
+const guessButtonContainerEl = document.getElementById('guessButtonContainer');
 // Elements for the ball
 const ballDisplayEl = document.querySelector('.ball');
 const ballDisplayInnerEl = document.querySelector('.ball__inner');
@@ -22,20 +24,10 @@ var Colors;
     Colors["Burgandy"] = "#3d0d0d";
     Colors["Black"] = "#000";
 })(Colors || (Colors = {}));
-// const colors = {
-//   yellow: '#fdc200',
-//   blue: '#0e276b',
-//   red: '#cf0000',
-//   purple: '#4c1764',
-//   orange: '#cf6400',
-//   green: '#0d5235',
-//   burgandy: '#3d0d0d',
-//   black: '#000',
-// };
 // Global variables
-let shuffledBalls, currentIndex, currentAnswer, alreadyAnsweredAmount, correctAnswers, timer, isGameOver, questionTicker;
+let shuffledBalls, currentIndex, currentAnswer, alreadyAnsweredAmount, correctAnswers, timer, isGameOver, countdownTimer;
 // Time between questions and feedback delay between questions
-const timeBetweenQuestions = 15000;
+const timeBetweenQuestions = 10000;
 const feedbackTime = 1500;
 // Define balls and colors
 const balls = [
@@ -136,6 +128,7 @@ function disableInput() {
         // elements[i].disabled = true;
         elements[i].setAttribute('disabled', '');
     }
+    //TODO: DISBLE BUTTONS
 }
 // Disable the input field
 function enableInput() {
@@ -150,12 +143,86 @@ function setBallDisplay(ball) {
     ballDisplayEl.style.backgroundColor = !ball.striped ? ball.color : '#f0ffbe';
     ballDisplayInnerEl.style.backgroundColor = ball.color;
 }
+// Display timer between questions
+// Help from https://www.w3schools.com/howto/howto_js_countdown.asp
+function showCountDownTimer() {
+    // Set date/time we're counting down to
+    const countdownTime = new Date().getTime() + timeBetweenQuestions;
+    // const countdownTimeSeconds: number = new Date().getTime() + timeBetweenQuestions;
+    countdownEl.innerText = (timeBetweenQuestions / 1000).toString();
+    countdownTimer = setInterval(function () {
+        // Get current date/time
+        const now = new Date().getTime();
+        // Find the distance between the two times
+        const distance = countdownTime - now;
+        // Convert distance to seconds
+        const secondsRemaining = Math.round(distance / 1000);
+        // Display seconds remaining
+        countdownEl.innerText = secondsRemaining.toString();
+        // Clear the timer
+        if (distance < 0) {
+            clearInterval(countdownTimer);
+        }
+    }, 1000);
+}
+//========================================================
+//========================================================
+//========================================================
+function removeGuessButtons() {
+    guessButtonContainerEl.innerHTML = '';
+}
+function handleButtonGuess(e) {
+    e.preventDefault();
+    const buttonEl = e.target;
+    const guess = buttonEl.innerText;
+    if (isGameOver)
+        return;
+    clearTimeout(timer);
+    clearInterval(countdownTimer);
+    currentAnswer = guessInputEl.value;
+    checkQuestion(guess);
+    clearInputField();
+}
+function showGuessButtons(currentBallNumber) {
+    let rangeRandom;
+    let availableGuessArray = [];
+    if (currentBallNumber < 9) {
+        const range = [1, 2, 3, 4, 5, 6, 7, 8];
+        rangeRandom = range.sort(() => Math.random() - 0.5);
+    }
+    else {
+        const range = [9, 10, 11, 12, 13, 14, 15];
+        rangeRandom = range.sort(() => Math.random() - 0.5);
+    }
+    rangeRandom.forEach(function (num) {
+        if (availableGuessArray.length > 2)
+            return;
+        if (num === currentBallNumber)
+            return;
+        availableGuessArray.push(num);
+    });
+    availableGuessArray.push(currentBallNumber);
+    availableGuessArray = availableGuessArray.sort(() => Math.random() - 0.5);
+    availableGuessArray.forEach(function (num) {
+        let button = document.createElement('button');
+        button.classList.add('guess-button');
+        button.innerText = num.toString();
+        guessButtonContainerEl.appendChild(button);
+        button.addEventListener('click', handleButtonGuess, false);
+    });
+}
+//========================================================
+//========================================================
+//========================================================
 function askQuestion() {
     enableInput();
     guessInputEl.focus();
+    removeGuessButtons();
+    showGuessButtons(shuffledBalls[currentIndex].number);
     setBallDisplay(shuffledBalls[currentIndex]);
-    displayEl.innerText = `What is the correct number?`;
+    displayEl.innerText = `Guess the correct number`;
     feedbackEl.innerHTML = `You have ${timeBetweenQuestions / 1000} seconds between questions.<br />${shuffledBalls.length - alreadyAnsweredAmount} questions remaining`;
+    showCountDownTimer();
     timer = setTimeout(function () {
         checkQuestion(guessInputEl.value);
     }, timeBetweenQuestions);
@@ -166,7 +233,8 @@ function nextQuestion() {
     askQuestion();
 }
 function gameOver() {
-    displayEl.innerText = `Game over. You scored ${correctAnswers}/${alreadyAnsweredAmount} for a score of ${Math.round((correctAnswers / alreadyAnsweredAmount) * 100)}%`;
+    displayEl.innerHTML = `Game over.<br />You scored ${correctAnswers}/${alreadyAnsweredAmount} for a score of ${Math.round((correctAnswers / alreadyAnsweredAmount) * 100)}%`;
+    countdownEl.innerText = '';
     removeEventListener('submit', handleSubmit);
     startGameButtonEl.classList.remove('hidden');
     disableInput();
@@ -174,6 +242,7 @@ function gameOver() {
 }
 function checkQuestion(answer) {
     disableInput();
+    removeGuessButtons();
     ballNumEl.innerText = shuffledBalls[currentIndex].number.toString();
     if (Number(answer) === shuffledBalls[currentIndex].number) {
         displayEl.innerText = 'Correct! 👍';
@@ -207,6 +276,7 @@ function handleSubmit(e) {
     if (isGameOver)
         return;
     clearTimeout(timer);
+    clearTimeout(countdownTimer);
     // const el = e.target?.elements[0] as HTMLFormElement;
     currentAnswer = guessInputEl.value;
     checkQuestion(currentAnswer);
@@ -230,7 +300,7 @@ function startGame() {
     // Hide start button and listen for resets
     startGameButtonEl.classList.add('hidden');
     startGameButtonEl.addEventListener('click', handleStartButtonClick);
-    // Reset timers and ...stuff
+    // Reset timers, inputs, etc
     clearInputField();
     clearTimeout(timer);
     ballNumEl.innerText = '?';
