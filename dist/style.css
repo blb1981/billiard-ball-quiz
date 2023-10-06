@@ -214,7 +214,6 @@ form > * {
 }
 
 .guess-button-container {
-  color: var(--clr-brown-400);
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
@@ -232,6 +231,7 @@ form > * {
 }
 
 .guess-button {
+  color: var(--clr-brown-400);
   font-size: 2rem;
 }
 
