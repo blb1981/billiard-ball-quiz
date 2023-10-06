@@ -232,6 +232,7 @@ form > * {
 
 .guess-button {
   color: var(--clr-brown-400);
+  -webkit-text-fill-color: var(--clr-brown-400);
   font-size: 2rem;
 }
 
