@@ -47,6 +47,7 @@ button {
   border: none;
   font-weight: 600;
   background-color: var(--clr-cream-400);
+  color: var(--clr-brown-400);
   cursor: pointer;
   transition: 0.25s ease;
   border-radius: 1rem;
@@ -231,8 +232,6 @@ form > * {
 }
 
 .guess-button {
-  color: var(--clr-brown-400);
-  -webkit-text-fill-color: var(--clr-brown-400);
   font-size: 2rem;
 }
 
