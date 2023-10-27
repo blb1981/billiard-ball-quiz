@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Mooli&family=Yellowtail&display=swap');
+
+:root {
+  --clr-cream-400: #f0ffbe;
+  --clr-cream-500: #ccdaa1;
+
+  --clr-brown-400: #412516;
+
+  --ff-heading: 'Yellowtail', cursive;
+  --ff-main: 'Mooli', sans-serif;
+
+  --test: #ffee00;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  color: var(--clr-cream-400);
+  font-family: var(--ff-main);
+  font-size: 1.125rem;
+  text-align: center;
+  background: #161616;
+}
+
+h1 {
+  color: var(--clr-cream-400);
+  font-family: var(--ff-heading);
+  font-size: 3rem;
+}
+
+@media screen and (max-width: 400px) {
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+button {
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  border: none;
+  font-weight: 600;
+  background-color: var(--clr-cream-400);
+  color: var(--clr-brown-400);
+  cursor: pointer;
+  transition: 0.25s ease;
+  border-radius: 1rem;
+}
+
+button:hover {
+  background-color: var(--clr-cream-500);
+}
+
+button:disabled:hover {
+  cursor: inherit;
+  background-color: var(--clr-cream-400);
+}
+
+footer {
+  color: var(--clr-brown-400);
+  margin-top: auto;
+  padding-bottom: 1rem;
+}
+
+footer a {
+  color: var(--clr-brown-400);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 50rem);
+  margin-inline: auto;
+  background: linear-gradient(to bottom, #046d56, #23cf9c) no-repeat;
+  min-height: 100vh;
+  border-left: 2.5rem solid var(--clr-brown-400);
+  border-right: 2.5rem solid var(--clr-brown-400);
+}
+
+@media screen and (max-width: 40em) {
+  .container {
+    border: none;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.ball {
+  width: 15rem;
+  height: 15rem;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--clr-cream-400);
+  margin-inline: auto;
+
+  box-shadow: 2px 14px 17px 10px rgba(0, 0, 0, 0.45);
+  -webkit-box-shadow: 2px 14px 17px 10px rgba(0, 0, 0, 0.45);
+  -moz-box-shadow: 2px 14px 17px 10px rgba(0, 0, 0, 0.45);
+}
+
+@media screen and (min-height: 300px) {
+  .ball {
+    width: 10rem;
+    height: 10rem;
+  }
+}
+
+.ball__inner {
+  top: 25%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  /* right: 25%; */
+  margin: 0 auto;
+  /* height: 100%; */
+  overflow: hidden;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ball__num {
+  width: 60px;
+  height: 60px;
+  background-color: var(--clr-cream-400);
+  color: black;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 600;
+  border: 3px solid black;
+}
+
+.ball__shine {
+  position: absolute;
+  content: '';
+  background-image: radial-gradient(closest-side at 50%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+  top: 5%;
+  left: 50%;
+  width: 70%;
+  height: 35%;
+  transform: translateX(-50%);
+}
+
+#display {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 2rem;
+}
+
+@media screen and (max-width: 400px) {
+  #display {
+    font-size: 1.5rem;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 20rem;
+  margin-inline: auto;
+  margin-bottom: 0.5rem;
+}
+
+form input {
+  width: 7rem;
+  padding: 0.5em 1em;
+  font-size: 2rem;
+  display: inline-block;
+  border-radius: 1rem;
+  border: none;
+  background-color: #1d1b1b;
+  color: var(--clr-cream-400);
+  text-align: center;
+}
+
+form button {
+  color: var(--clr-brown-400);
+}
+
+form input:focus {
+  color: var(--clr-cream-400);
+  border: none;
+  outline: none;
+}
+
+form input:disabled {
+  background-color: #4d4d4d;
+}
+
+form > * {
+  margin: 0.5rem 0;
+}
+
+.start-button {
+  max-width: 15rem;
+  margin-inline: auto;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--clr-brown-400);
+  margin-bottom: 1rem;
+}
+
+.guess-button-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  width: min(90%, 20rem);
+  gap: 2rem;
+  margin-inline: auto;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 400px) {
+  .guess-button-container {
+    gap: 1rem;
+  }
+}
+
+.guess-button {
+  font-size: 2rem;
+}
+
+@media screen and (max-width: 400px) {
+  .guess-button {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+#countdown {
+  margin-bottom: 1rem;
+}

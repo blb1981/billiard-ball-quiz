@@ -15,12 +15,12 @@ const ballNumEl = document.querySelector('.ball__num');
 // Define colors
 var Colors;
 (function (Colors) {
-    Colors["Yellow"] = "#fdc200";
+    Colors["Yellow"] = "#ffee00";
     Colors["Blue"] = "#0e276b";
-    Colors["Red"] = "#cf0000";
+    Colors["Red"] = "#FF0000";
     Colors["Purple"] = "#4c1764";
-    Colors["Orange"] = "#cf6400";
-    Colors["Green"] = "#0d5235";
+    Colors["Orange"] = "#ff7b00";
+    Colors["Green"] = "#013220";
     Colors["Burgandy"] = "#3d0d0d";
     Colors["Black"] = "#000";
 })(Colors || (Colors = {}));
@@ -128,7 +128,6 @@ function disableInput() {
         // elements[i].disabled = true;
         elements[i].setAttribute('disabled', '');
     }
-    //TODO: DISBLE BUTTONS
 }
 // Disable the input field
 function enableInput() {
@@ -165,9 +164,6 @@ function showCountDownTimer() {
         }
     }, 1000);
 }
-//========================================================
-//========================================================
-//========================================================
 function removeGuessButtons() {
     guessButtonContainerEl.innerHTML = '';
 }
@@ -211,9 +207,6 @@ function showGuessButtons(currentBallNumber) {
         button.addEventListener('click', handleButtonGuess, false);
     });
 }
-//========================================================
-//========================================================
-//========================================================
 function askQuestion() {
     enableInput();
     guessInputEl.focus();

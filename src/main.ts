@@ -21,12 +21,12 @@ interface Ball {
 
 // Define colors
 enum Colors {
-  Yellow = '#fdc200',
+  Yellow = '#ffee00',
   Blue = '#0e276b',
-  Red = '#cf0000',
+  Red = '#FF0000',
   Purple = '#4c1764',
-  Orange = '#cf6400',
-  Green = '#0d5235',
+  Orange = '#ff7b00',
+  Green = '#013220',
   Burgandy = '#3d0d0d',
   Black = '#000',
 }
